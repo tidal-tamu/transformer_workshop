@@ -8,8 +8,8 @@ This is a **decoder-only** transformer (the same kind of model as GPT). A causal
 
 | File | What it is |
 |------|------------|
-| `starter_code.py` | **The file you work in.** A complete, working model. You only change the settings at the top. |
-| `completed_code/mini_gpt.py` | **The tuned reference.** The same model plus dropout, weight decay, learning-rate decay and early stopping. Run it after the workshop to compare. |
+| `starter_code.py` | **The file you work in.** Fill in the `___` blanks, then change the settings at the top. |
+| `completed_code/mini_gpt.py` | **The answer key and tuned reference.** The blanks filled in, plus weight decay, learning-rate decay and early stopping. |
 | `France_Wikipedia_Clean_Text.txt` | The training text. |
 | `requirements.txt` | The Python packages to install. You get it when you clone the repo, so there's nothing to download separately. |
 
@@ -62,14 +62,14 @@ Training takes about 1-3 minutes on a laptop CPU. If yours is slow, lower `max_i
 
 ### Part 1: Build the Transformer
 
-Turn on one flag at a time in `starter_code.py` and rerun after each:
+Fill in the blanks for each step, turn on its flag in `starter_code.py`, and rerun:
 
-| Step | Flags on | Val loss | What you should see |
-|------|----------|----------|---------------------|
-| 1 | none (bigram) | ~2.54 | Wikipedia-shaped gibberish |
-| 2 | `USE_ATTENTION` | ~2.23 | Word-ish chunks |
-| 3 | `+ USE_FFWD` | ~2.45 | ...loss goes **up**?! |
-| 4 | `+ USE_RESIDUAL` | ~2.06 | Real words and phrases |
+| Step | Flags on | Blanks to fill | Val loss | What you should see |
+|------|----------|----------------|----------|---------------------|
+| 1 | none (bigram) | `get_batch`, `generate` | ~2.54 | Wikipedia-shaped gibberish |
+| 2 | `USE_ATTENTION` | `Head` | ~2.45 | Slightly better |
+| 3 | `+ USE_FFWD` | none | ~3.23 | ...loss goes **way up** and gets stuck?! |
+| 4 | `+ USE_RESIDUAL` | `Block` | ~1.99 | Real words and phrases |
 
 Step 3 gets worse because stacking more layers without residual connections makes the network harder to train. Compare the **Backprop** plot for steps 3 and 4 to see why.
 
@@ -85,6 +85,7 @@ With all flags on, change the settings below. **Can you beat `mini_gpt.py`'s val
 | `n_embd` | Size of each character's vector | 32, 128 |
 | `n_head` | Attention heads per block | 1, 8 |
 | `learning_rate` | Size of each gradient descent step | 1e-4, 1e-2 |
+| `dropout` | Fraction of activations zeroed during training (fights memorizing) | 0.0, 0.3 |
 | `batch_size` | Sequences trained on per step | 8, 64 |
 | `PROMPT` | Text the model continues | anything |
 
