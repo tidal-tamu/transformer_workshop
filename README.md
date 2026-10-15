@@ -60,39 +60,6 @@ python starter_code.py
 
 Training takes about 1-3 minutes on a laptop CPU. If yours is slow, lower `max_iters`. When training finishes, the script prints a text sample, then opens a window of plots (also saved as `training_plots.png`). **Close the plot window to end the program.**
 
-### Part 1: Build the Transformer
-
-Fill in the blanks for each step, turn on its flag in `starter_code.py`, and rerun:
-
-| Step | Flags on | Blanks to fill | Val loss | What you should see |
-|------|----------|----------------|----------|---------------------|
-| 1 | none (bigram) | `get_batch`, `generate` | ~2.54 | Wikipedia-shaped gibberish |
-| 2 | `USE_ATTENTION` | `Head` | ~2.45 | Slightly better |
-| 3 | `+ USE_FFWD` | none | ~3.23 | ...loss goes **way up** and gets stuck?! |
-| 4 | `+ USE_RESIDUAL` | `Block` | ~1.99 | Real words and phrases |
-
-Step 3 gets worse because stacking more layers without residual connections makes the network harder to train. Compare the **Backprop** plot for steps 3 and 4 to see why.
-
-### Part 2: Tune the Hyperparameters
-
-With all flags on, change the settings below. **Can you beat `mini_gpt.py`'s val loss of ~1.92 without raising `max_iters`?**
-
-| Setting | What it does | Try |
-|---------|--------------|-----|
-| `temperature` | Sampling randomness. Changes the text, not the loss. | 0.3 vs 1.5 |
-| `block_size` | How many characters the model can see at once | 2, 64 |
-| `n_layer` | Number of transformer blocks | 1, 6 |
-| `n_embd` | Size of each character's vector | 32, 128 |
-| `n_head` | Attention heads per block | 1, 8 |
-| `learning_rate` | Size of each gradient descent step | 1e-4, 1e-2 |
-| `dropout` | Fraction of activations zeroed during training (fights memorizing) | 0.0, 0.3 |
-| `batch_size` | Sequences trained on per step | 8, 64 |
-| `PROMPT` | Text the model continues | anything |
-
-Two rules, or the script stops with an error:
--   `n_embd` must be divisible by `n_head`.
--   `PROMPT` can only use characters that appear in the training text.
-
 ### Reading the Plots
 
 | Plot | What it shows |
